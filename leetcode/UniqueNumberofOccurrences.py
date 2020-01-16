@@ -13,7 +13,11 @@ class Solution(object):
                 self.dic[i]=1
             else:
                 self.dic[i]+=1
-        #print self.dic
+        """
+        print self.dic
+        print self.dic.values()
+        print len(self.dic)
+        """
         return len(self.dic) == len(set((self.dic).values()))
 
 arr = [1,2,2,1,1,3,3]
