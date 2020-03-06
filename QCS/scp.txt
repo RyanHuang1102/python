@@ -1,0 +1,2 @@
+cd /usr/local/qsgw/bin
+scp ryanhuang@10.19.250.160:/home/ryanhuang/ryanhuang_github/python/QCS/qcs_iscsi_config.py ryanhuang@10.19.250.160:/home/ryanhuang/ryanhuang_github/python/QCS/qcs_iscsi_lib.py /usr/local/qsgw/bin

@@ -1,0 +1,2 @@
+2020 Feb 25 Tue 10:35:06 INFO acquire_idx_by_bmp_tag:tag=targetBitmap ret=1 idx=0
+2020 Feb 25 Tue 10:35:06 INFO CFG_Add_Target_Info:targetIndex=0 targetIQN=iqn.2004-04.com.qnap:qcs:iscsi.123
