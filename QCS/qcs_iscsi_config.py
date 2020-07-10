@@ -7,14 +7,10 @@ from time import sleep
 MAX_TRY = 20
 GET_LOCK_FILE_FAIL = -2
 
-LUN_CONFIG = '/share/CACHEDEV1_DATA/.config/iscsi/qcs_iscsi_lun'
-#Bitmap Control
-CFG_LUNBitMap = 'LUNBitMap'
-
 class INI_CONF():
     def __init__(self, config_path):
         parser = ConfigParser.RawConfigParser()
-        self.config_path = config_path+'.ini'
+        self.config_path = config_path
         self.parser = parser
         self.parser.optionxform = str #prevent from string to lowercase
         if not os.path.isfile(self.config_path):#Default Conf
@@ -94,7 +90,7 @@ class INI_CONF():
 
 class JSON_CONF():
     def __init__(self, config_path):
-        self.config_path = config_path+'.json'
+        self.config_path = config_path
         if not os.path.isfile(self.config_path):#Default Conf
             path = os.path.split(config_path)[0]
             try:
@@ -102,23 +98,18 @@ class JSON_CONF():
             except:
                 pass
             finally:
-                dic = {'Global':{'LogFlags':'7'}}
-        	fo = open(self.config_path, 'wb')
-        	json.dump(dic, fo, indent = 2, sort_keys=True)
-        	fo.close()
+                dic = {'Global':{'LogFlags':'7'},'acl_trgts':{},'acl_luns':{}}
+                with open(self.config_path, 'wb') as fo:
+        	    json.dump(dic, fo, indent = 2, sort_keys=True)
 
     def JSON_Write_Conf(self, data):
-        if os.path.isfile(self.config_path):
-            file_data = self.JSON_Read_Conf()
-            file_data.update(data) #append new section
-
         lck_fo = FILE_LOCK(self.config_path)
 
         if lck_fo is -1:
             return GET_LOCK_FILE_FAIL
 
         fo = open(self.config_path, 'wb')
-        json.dump(file_data, fo, indent = 2, sort_keys=True)
+        json.dump(data, fo, indent = 2, sort_keys=True)
         fo.close()
 
         FILE_UNLOCK(lck_fo, self.config_path)
